@@ -60,11 +60,20 @@ export default function App () {
     const dataUpdated = data.map((i) => {
       const uv_z = (i.uv - uvMean) / uvStDeviation;
       const pv_z = (i.pv - pvMean) / pvStDeviation;
-
+      const pv_plus_std = pvMean + pvStDeviation;
+      const uv_plus_std = uvMean + uvStDeviation;
+      const pv_minus_std = pvMean - pvStDeviation;
+      const uv_minus_std = uvMean - uvStDeviation;
       return {
         ...i,
         uv_z,
-        pv_z
+        pv_z,
+        pv_plus_std,
+        uv_plus_std,
+        pv_minus_std,
+        uv_minus_std,
+        uv_mean: uvMean,
+        pv_mean: pvMean
       }
     })
 
@@ -88,10 +97,16 @@ export default function App () {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+              {/*<Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="pv_plus_std" stroke="black" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="pv_minus_std" stroke="grey" />
+              <Line type="monotone" dataKey="pv_mean" stroke="red" />*/}
+              {/*<Line type="monotone" dataKey="pv_z" stroke="blue" activeDot={{ r: 8 }} />*/}
               <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-              <Line type="monotone" dataKey="pv_z" stroke="blue" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="uv_z" stroke="green" />
+              {/*<Line type="monotone" dataKey="uv_z" stroke="green" />*/}
+              <Line type="monotone" dataKey="uv_plus_std" stroke="blue" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="uv_minus_std" stroke="green" />
+              <Line type="monotone" dataKey="uv_mean" stroke="red" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -102,18 +117,26 @@ export default function App () {
                 <th>Name</th>
                 <th>UV</th>
                 <th>Z-score UV</th>
+                <th>UV + 1std</th>
+                <th>UV - 1std</th>
                 <th>PV</th>
                 <th>Z-score PV</th>
+                <th>PV + 1std</th>
+                <th>PV - 1std</th>
               </tr>
             </thead>
             <tbody>
-              {dataUpdated.map(({name, uv, pv, pv_z, uv_z}) => (
+              {dataUpdated.map(({name, uv, pv, pv_z, uv_z, uv_plus_std, uv_minus_std, pv_plus_std, pv_minus_std}) => (
                 <tr key={name}>
                   <td>{name}</td>
                   <td>{uv}</td>
                   <td>{(uv_z.toFixed(2))}</td>
+                  <td>{(uv_plus_std.toFixed(2))}</td>
+                  <td>{(uv_minus_std.toFixed(2))}</td>
                   <td>{pv}</td>
                   <td>{pv_z.toFixed(2)}</td>
+                  <td>{(pv_plus_std.toFixed(2))}</td>
+                  <td>{(pv_minus_std.toFixed(2))}</td>
                 </tr>
               ))}
             </tbody>
