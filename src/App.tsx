@@ -1,114 +1,79 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { useReducer } from 'react';
+import { Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart } from 'recharts';
+import { dataUpdated, gradientOffsetPvMinusSt, gradientOffsetPvPlusSt, gradientOffsetUvMinusSt, gradientOffsetUvPlusSt } from './helpers';
+import { State } from './types';
+import { initialState, reducer } from './state';
+
 import s from './app.module.scss'
 
-
 export default function App () {
-  const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
-    const uvMean = data.reduce((acc, { uv }) => acc + uv, 0)/data.length;
-    const uvStDeviation = Math.sqrt(
-      data.reduce((sum, {uv}) => sum + Math.pow(uv - uvMean, 2), 0) / data.length
-    );
-    const pvMean = data.reduce((acc, { pv }) => acc + pv, 0)/data.length;
-    const pvStDeviation = Math.sqrt(
-      data.reduce((sum, {pv}) => sum + Math.pow(pv - pvMean, 2), 0) / data.length
-    );
-    console.log(uvMean, pvMean, uvStDeviation, pvStDeviation);
-    const dataUpdated = data.map((i) => {
-      const uv_z = (i.uv - uvMean) / uvStDeviation;
-      const pv_z = (i.pv - pvMean) / pvStDeviation;
-      const pv_plus_std = pvMean + pvStDeviation;
-      const uv_plus_std = uvMean + uvStDeviation;
-      const pv_minus_std = pvMean - pvStDeviation;
-      const uv_minus_std = uvMean - uvStDeviation;
-      return {
-        ...i,
-        uv_z,
-        pv_z,
-        pv_plus_std,
-        uv_plus_std,
-        pv_minus_std,
-        uv_minus_std,
-        uv_mean: uvMean,
-        pv_mean: pvMean
-      }
-    })
+  const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
       <div className={s.container}>
-        <div className={s.chart}>
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              width={500}
-              height={300}
-              data={dataUpdated}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {/*<Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="pv_plus_std" stroke="black" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="pv_minus_std" stroke="grey" />
-              <Line type="monotone" dataKey="pv_mean" stroke="red" />*/}
-              {/*<Line type="monotone" dataKey="pv_z" stroke="blue" activeDot={{ r: 8 }} />*/}
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-              {/*<Line type="monotone" dataKey="uv_z" stroke="green" />*/}
-              <Line type="monotone" dataKey="uv_plus_std" stroke="blue" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="uv_minus_std" stroke="green" />
-              <Line type="monotone" dataKey="uv_mean" stroke="red" />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className={s.chartContainer}>
+          <div className={s.chart}>
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart
+                width={500}
+                height={300}
+                data={dataUpdated}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <defs>
+                  <linearGradient id="PvPlusStDev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset={gradientOffsetPvPlusSt()} stopColor="red" stopOpacity={1}/>
+                    <stop offset={gradientOffsetPvPlusSt()} stopColor="transparent" stopOpacity={1}/>
+                  </linearGradient>
+                  <linearGradient id="PvMinusStDev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset={gradientOffsetPvMinusSt()} stopColor="transparent" stopOpacity={1}/>
+                    <stop offset={gradientOffsetPvMinusSt()} stopColor="red" stopOpacity={1}/>
+                  </linearGradient>
+                  <linearGradient id="UvPlusStDev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset={gradientOffsetUvPlusSt()} stopColor="red" stopOpacity={1}/>
+                    <stop offset={gradientOffsetUvPlusSt()} stopColor="transparent" stopOpacity={1}/>
+                  </linearGradient>
+                  <linearGradient id="UvMinusStDev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset={gradientOffsetUvMinusSt()} stopColor="transparent" stopOpacity={1}/>
+                    <stop offset={gradientOffsetUvMinusSt()} stopColor="red" stopOpacity={1}/>
+                  </linearGradient>
+                </defs>
+                <Area type="monotone" dataKey="pv" stroke="#8884d8" fill="url(#PvPlusStDev)" activeDot={{ r: 8 }} />
+                <Area type="monotone" baseValue="dataMax" dataKey="pv" stroke="transparent" fill="url(#PvMinusStDev)" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="pv_plus_std" stroke="black" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="pv_minus_std" stroke="grey" activeDot={{ r: 8 }} />
+
+                <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="url(#UvPlusStDev)" activeDot={{ r: 8 }} />
+                <Area type="monotone" baseValue="dataMax" dataKey="uv" stroke="transparent" fill="url(#UvMinusStDev)" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="uv_plus_std" stroke="grey" fill="transparent" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="uv_minus_std" stroke="green" />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+          <div className={s.chartMenu}>
+          {Object.entries(state).map(([key, value]) => (
+            <label key={key} style={{ display: 'block', marginBottom: '8px' }}>
+            <input
+              type="checkbox"
+              checked={value}
+              onChange={() =>
+                dispatch({ type: value ? 'OFF' : 'ON', key: key as keyof State })
+              }
+            />
+              {key}
+            </label>
+      ))}
+          </div>
         </div>
         <div className={s.table}>
           <table className={s.chartTable}>
