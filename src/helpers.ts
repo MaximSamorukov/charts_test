@@ -91,7 +91,5 @@ export const dataUpdated = data.map((i) => {
      uv_minus_std,
      uv_mean: uvMean,
      pv_mean: pvMean,
-     pv_range_below: [pv_plus_std, i.pv],
-     pv_range_down: [pv_minus_std, i.pv],
    }
  })
