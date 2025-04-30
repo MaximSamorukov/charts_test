@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer } from 'react';
+import { useMemo, useReducer } from 'react';
 import { Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart } from 'recharts';
 import { data, dataUpdated,  pvMean, pvStDeviation, uvMean, uvStDeviation } from './helpers';
 import { Table } from './Table';
