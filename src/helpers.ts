@@ -1,3 +1,5 @@
+import { DataType } from "./types";
+
 export const data = [
    {
      name: 'Page A',
@@ -52,28 +54,7 @@ export const pvStDeviation = Math.sqrt(
 data.reduce((sum, {pv}) => sum + Math.pow(pv - pvMean, 2), 0) / data.length
 );
 
-export const gradientOffsetPvPlusSt = () => {
-   const dataMax = Math.max(...data.map((i) => i.pv));
-   return `${(dataMax - (pvMean + pvStDeviation)) / dataMax * 100}%`;
-};
-export const gradientOffsetPvMinusSt = () => {
-   const dataMax = Math.max(...data.map((i) => i.pv));
-   const dataMin = Math.min(...data.map((i) => i.pv));
-   const delta = dataMax - dataMin;
-   return `${(delta - (pvMean - pvStDeviation - dataMin)) / delta * 100}%`;
-};
-export const gradientOffsetUvPlusSt = () => {
-   const dataMax = Math.max(...data.map((i) => i.uv));
-   return `${(dataMax - (uvMean + uvStDeviation)) / dataMax * 100}%`;
-};
-export const gradientOffsetUvMinusSt = () => {
-   const dataMax = Math.max(...data.map((i) => i.uv));
-   const dataMin = Math.min(...data.map((i) => i.uv));
-   const delta = dataMax - dataMin;
-   return `${(delta - (uvMean - uvStDeviation - dataMin)) / delta * 100}%`;
-};
-
-export const dataUpdated = data.map((i) => {
+export const dataUpdated: DataType[] = data.map((i) => {
    const uv_z = (i.uv - uvMean) / uvStDeviation;
    const pv_z = (i.pv - pvMean) / pvStDeviation;
    const pv_plus_std = pvMean + pvStDeviation;
