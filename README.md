@@ -1,54 +1,51 @@
-# React + TypeScript + Vite
+# Максим Саморуков — Фронтенд React разработчик
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Добрый день!  
+Я – фронтенд React разработчик с опытом коммерческой разработки более **4 лет**. Мне нравится создавать удобные и функциональные интерфейсы в прикладных областях человеческой деятельности, таких как **технологии, медицина, финансы, логистика**.
 
-Currently, two official plugins are available:
+## Технологический стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Языки и платформы**: Node.js, JavaScript, TypeScript, Electron.js, Next.js, React.js  
+- **Управление состоянием**: Redux, Redux Toolkit, MobX, Effector, Zustand, Tanstack Query  
+- **Работа с API**: REST API  
+- **Стилизация интерфейсов**: CSS, SC(A)SS, Less, CSS in JS  
+- **UI библиотеки**: Ant Design, Material UI  
+- **Тестирование**: Jest  
+- **Сборка проектов**: Webpack, Vite  
 
-## Expanding the ESLint configuration
+## Опыт в коммерческих проектах
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Разрабатываю интерфейсы и логику классовых и функциональных React-компонентов с использованием CSS, SCSS, CSS in JS, а также логику управления состоянием приложения с использованием Redux, RTK  
+2. Соблюдаю принципы **DRY**, **KISS** при написании кода  
+3. Реализую логику асинхронного взаимодействия фронтенда с бэкендом на основе **REST API**, обрабатываю и отображаю полученные данные  
+4. Использую вспомогательные библиотеки: `moment.js`, `lodash`, `axios`, `openLayers` и др.  
+5. Верстаю интерфейсы на основе табличных данных, форм, карт по макетам из **Figma**, **Pixso**  
+6. Применяю UI библиотеки: **Ant Design**, **Material UI**  
+7. Провожу тестирование с помощью **Jest**  
+8. Есть опыт настройки сборки проектов (**Electron + React**) с использованием **Webpack** и **Vite**  
+9. Участвую в код-ревью  
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Дополнительно
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Английский язык**: Upper Intermediate  
+- **Образование**: Высшее техническое  
+- Отличительные стороны: **системность, ответственность, надёжность**, готовность глубоко разбираться в задаче и доводить её до решения
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Занятость
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Рассматриваю возможность **удалённой работы**:  
+- на **полную ставку**,  
+- **частичную занятость**  
+- **проектную занятость**
+
+## Контакты
+
+- Telegram: [@M_Camopykoff](https://t.me/M_Camopykoff)  
+- Резюме: [react-resume-sandy.vercel.app](https://react-resume-sandy.vercel.app/)  
+- GitHub: [github.com/MaximSamorukov](https://github.com/MaximSamorukov)  
+- LinkedIn: [linkedin.com/in/maxim-samorukov](https://www.linkedin.com/in/maxim-samorukov/)  
+- Телефон: +7 925 026 17 37  
+- E-mail: [maxim.samorukov@gmail.com](mailto:maxim.samorukov@gmail.com)
+
+С уважением,  
+**Максим Саморуков**
